@@ -1,0 +1,5 @@
+IP: 51.250.101.209;
+name_taski: полная ссылка (https://доменное_имя) на ваш проект Taski;
+name_kittygram: https://kittyty.sytes.net/;
+login: admin;
+password: admin; 
