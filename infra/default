@@ -1,1 +1,84 @@
-/etc/nginx/sites-available/default
+ server {
+    server_name 51.250.101.209 yataski.dynnamn.ru;
+
+    location /api/ {
+        proxy_pass http://127.0.0.1:8000;
+    }
+    
+    # Новый блок.
+    location /admin/ {
+        proxy_pass http://127.0.0.1:8000;
+    }
+
+    location / {
+        root   /var/www/taski;
+        index  index.html index.htm;
+        try_files $uri /index.html;
+    }
+
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/yataski.dynnamn.ru/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/yataski.dynnamn.ru/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+ server {
+    if ($host = yataski.dynnamn.ru) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+
+    listen 80;
+    server_name 51.250.101.209 yataski.dynnamn.ru;
+    return 404; # managed by Certbot
+
+
+}
+
+
+server {
+    server_name 51.250.101.209 kittyty.didns.ru;
+    
+    location / {
+        root   /var/www/infra_sprint1;
+        index  index.html index.htm;
+        try_files $uri /index.html;
+    }
+    
+    location /api/ {
+        proxy_pass http://127.0.0.1:8080;
+    }
+
+    location /admin/ {
+        proxy_pass http://127.0.0.1:8080;
+    }
+
+    location /media/ {
+    alias /var/www/infra_sprint1/media/;
+    }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/kittyty.didns.ru/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/kittyty.didns.ru/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+
+}
+
+
+server {
+    if ($host = kittyty.didns.ru) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+	listen 80;
+	server_name 51.250.101.209 kittyty.didns.ru;
+    return 404; # managed by Certbot
+
+
+}
