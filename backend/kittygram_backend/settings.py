@@ -1,5 +1,5 @@
 import os
-from dotenv import dotenv_values
+from dotenv import load_dotenv
 load_dotenv() 
 #from pathlib import Path
 #config = dotenv_values(".env") 
