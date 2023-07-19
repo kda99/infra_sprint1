@@ -16,7 +16,6 @@
         try_files $uri /index.html;
     }
 
-
     listen 443 ssl; # managed by Certbot
     ssl_certificate /etc/letsencrypt/live/yataski.dynnamn.ru/fullchain.pem; # managed by Certbot
     ssl_certificate_key /etc/letsencrypt/live/yataski.dynnamn.ru/privkey.pem; # managed by Certbot
@@ -24,20 +23,17 @@
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 
 }
+
  server {
     if ($host = yataski.dynnamn.ru) {
         return 301 https://$host$request_uri;
     } # managed by Certbot
 
-
-
     listen 80;
     server_name 51.250.101.209 yataski.dynnamn.ru;
     return 404; # managed by Certbot
 
-
 }
-
 
 server {
     server_name 51.250.101.209 kittyty.didns.ru;
@@ -66,19 +62,15 @@ server {
     include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 
-
 }
-
 
 server {
     if ($host = kittyty.didns.ru) {
         return 301 https://$host$request_uri;
     } # managed by Certbot
 
-
 	listen 80;
 	server_name 51.250.101.209 kittyty.didns.ru;
     return 404; # managed by Certbot
-
 
 }
